@@ -1,0 +1,126 @@
+###
+# CGET 200
+GET http://127.0.0.1:80/api/v1/vehiculos
+Accept: application/json
+
+###
+# GET ERROR 422 (validación parámetros)
+GET http://127.0.0.1:80/api/v1/vehiculos/abcdefg
+Accept: application/json
+
+###
+# GET 200
+GET http://127.0.0.1:80/api/v1/vehiculos/M109186
+Accept: application/json
+
+###
+# DELETE 204
+DELETE http://127.0.0.1:80/api/v1/vehiculos/M109186
+Accept: application/json
+
+###
+# POST 201
+POST http://127.0.0.1:80/api/v1/vehiculos
+Content-Type: application/json
+
+{
+  "VIN": "M109186",
+  "matricula_actual": "0808 LCD",
+  "tipo_de_vehiculo": Coche,
+  "modelo": "Ranger XLT",
+  "marca": "Ford",
+  "tipo_de_combustible": Gasoleo o Diesel,
+}
+
+###
+# COPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/vehiculos
+Content-Type: application/json
+
+###
+# OPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/vehiculos/M109186
+Content-Type: application/json
+
+###
+# POST 201 (dinámico)
+POST http://127.0.0.1:80/api/v1/vehiculos
+Prefer: dynamic=true
+Content-Type: application/json
+
+{
+  "VIN": "M109186",
+  "matricula_actual": "0808 LCD",
+  "tipo_de_vehiculo": Coche,
+  "modelo": "Ranger XLT",
+  "marca": "Ford",
+  "tipo_de_combustible": Gasoleo o Diesel,
+}
+
+###
+# PUT 422 (dinámico) - Falta cabecera If-Match
+PUT http://127.0.0.1:80/api/v1/vehiculos/M109186
+Prefer: dynamic=true
+Content-Type: application/json
+
+{
+  "marca": "Mustang"
+}
+
+###
+# PUT 200 (dinámico)
+PUT http://127.0.0.1:80/api/v1/vehiculos/M109186
+If-Match: 12345
+Prefer: dynamic=true
+Content-Type: application/json
+
+{
+  "marca": "Mustang"
+}
+
+###
+# CGET 404
+GET http://127.0.0.1:80/api/v1/vehiculos
+Prefer: code=404
+Accept: application/problem+json
+
+###
+# DELETE 404
+DELETE http://127.0.0.1:80/api/v1/vehiculos/M109186
+Prefer: code=404
+
+###
+# POST 422
+POST http://127.0.0.1:80/api/v1/vehiculos
+Prefer: code=422
+Content-Type: application/json
+
+{
+  "XXXVIN": "M109186",
+  "matricula_actual": "0808 LCD",
+  "tipo_de_vehiculo": Coche,
+  "modelo": "Ranger XLT",
+  "marca": "Ford",
+  "tipo_de_combustible": Gasoleo o Diesel,
+}
+
+###
+# PUT 404 (dinámico) - Not Found
+PUT http://127.0.0.1:80/api/v1/vehiculos/M109186
+If-Match: a1b2c3d4e5f6
+Prefer: code=404
+Content-Type: application/json
+
+{
+  "marca": "Mustang"
+}
+
+###
+# PUT 422 (dinámico) - Falta cabecera If-Match
+PUT http://127.0.0.1:80/api/v1/vehiculos/M109186
+Prefer: code=422
+Content-Type: application/json
+
+{
+  "marca": "Mustang"
+}
